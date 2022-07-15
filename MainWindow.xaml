@@ -10,8 +10,8 @@
         <Grid.Effect>
             <DropShadowEffect/>
         </Grid.Effect>
-        <Button x:Name="CheckUpdatesButton" Content="Comprobar actualizaciones" HorizontalAlignment="Center" Margin="0,235,0,0" VerticalAlignment="Top" Height="64" Width="293" FontSize="22" FontFamily="Impact"/>
-        <Button x:Name="UpdateButton" Content="Actualizar" HorizontalAlignment="Center" Margin="0,318,0,0" VerticalAlignment="Top" Height="64" Width="292" FontSize="22" FontFamily="Impact"/>
+        <Button x:Name="CheckUpdatesButton" Content="Comprobar actualizaciones" HorizontalAlignment="Center" Margin="0,235,0,0" VerticalAlignment="Top" Height="64" Width="293" FontSize="22" FontFamily="Impact" Click="CheckUpdatesButton_Click"/>
+        <Button x:Name="UpdateButton" Content="Actualizar" HorizontalAlignment="Center" Margin="0,318,0,0" VerticalAlignment="Top" Height="64" Width="292" FontSize="22" FontFamily="Impact" Click="UpdateButton_Click"/>
         <Label x:Name="CurrentVersion" Content="0.0.0" HorizontalAlignment="Center" Margin="0,91,0,0" VerticalAlignment="Top" FontSize="48" Height="86" Width="204" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
     </Grid>

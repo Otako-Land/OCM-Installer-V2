@@ -22,4 +22,23 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
+	<PropertyGroup>
+		<NugetTools>$(PkgNuGet_CommandLine)\tools</NugetTools>
+		<SquirrelTools>$(PkgClowd_Squirrel)\tools</SquirrelTools>
+
+		<Version>1.0.0</Version>
+
+		<NuspecFile>$(SolutionDir)OCMInstallerV2.nuspec</NuspecFile>
+	</PropertyGroup>
+
+	<Target Name="GenerateRelease" AfterTargets="AfterBuild" Condition="$(Configuration) == Release">
+		<XmlPeek XmlInputPath="$(NuspecFile)" Query="/package/metadata/id/text()">
+			<Output TaskParameter="Result" ItemName="ID" />
+		</XmlPeek>
+
+		<Exec Command='$(NugetTools)\NuGet.exe pack "$(NuspecFile)" -Version $(Version) -Properties Configuration=Release -OutputDirectory "$(SolutionDir)Deployment\GeneratedNugets"' />
+
+		<Exec Command='$(SquirrelTools)\Squirrel.exe releasify --package="$(SolutionDir)Deployment\GeneratedNugets\@(ID).$(Version).nupkg" --releaseDir="$(SolutionDir)Deployment\Releases" --framework net6.0.2 --icon "icono.ico" --splashImage "ocmlogomenu.png"' />
+	</Target>
 </Project>

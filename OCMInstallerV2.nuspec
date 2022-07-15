@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>OCMInstallerV2</id>
+    <version>0.0.0</version>
+    <title>Otako Mods Launcher</title>
+    <authors>The Ghost</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icono.ico</icon> -->
+    <projectUrl>https://github.com/Otako-Land/OCM-Installer-V2</projectUrl>
+    <description>Instalador</description>
+    <releaseNotes>Cositas</releaseNotes>
+    <copyright>$copyright$</copyright>
+  </metadata>
+  
+  <files>
+    <file src="bin\Release\net6.0-windows\**" target="lib\net6.0.2"/>
+  </files>
+</package>

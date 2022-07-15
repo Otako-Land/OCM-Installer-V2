@@ -26,9 +26,30 @@ namespace OCM_Installer_V2
 
             UpdateHandler.HandleInstallEvents();
 
-            manager = new GithubUpdateManager(@"");
+            manager = new GithubUpdateManager(@"https://github.com/Otako-Land/OCM-Installer-V2");
 
             CurrentVersion.Content = manager.CurrentlyInstalledVersion().ToString();
+        }
+
+        private async void CheckUpdatesButton_Click(object sender, RoutedEventArgs e)
+        {
+            var updateInfo = await manager.CheckForUpdate();
+
+            if (updateInfo.ReleasesToApply.Count > 0)
+            {
+                MessageBox.Show("Hay actualizaciones disponibles");
+            }
+            else
+            {
+                MessageBox.Show("No hay actualizaciones");
+            }
+        }
+
+        private async void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            await manager.UpdateApp();
+
+            MessageBox.Show("Programa actualizado");
         }
     }
 }
