@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<RootNamespace>OCM_Installer_V2</RootNamespace>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>icono.ico</ApplicationIcon>
+		<AssemblyName>Otako Mods Launcher</AssemblyName>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="icono.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Clowd.Squirrel" Version="2.9.42" />
+		<PackageReference Include="NuGet.CommandLine" Version="6.2.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+</Project>
