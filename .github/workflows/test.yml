@@ -75,7 +75,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Build program
-      run: msbuild "$env:Solution_Name" /t:Restore /p:Configuration=Release
+      run: msbuild "$env:Solution_Name" /target:Deploy /t:Restore /p:Configuration=Release
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
@@ -84,9 +84,6 @@ jobs:
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Create NuGet file
       run: nuget pack OCMInstallerV2.nuspec -Version $env:version -Properties Configuration=$env:configuration -OutputDirectory "Deployment\GeneratedNugets"
-
-    - name: Install Squirrel
-      run: nuget install Clowd.Squirrel -OutputDirectory packages
 
     - name: Do squirrel release
       run: packages\Squirrel.exe releasify --package="Deployment\GeneratedNugets\$env:id.$env:version.nupkg" --releaseDir="Deployment\Releases" --framework net6.0.2 --icon "icono.ico" --splashImage "ocmlogomenu.png"
