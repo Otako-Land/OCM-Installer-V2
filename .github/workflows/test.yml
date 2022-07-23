@@ -51,8 +51,6 @@ jobs:
     strategy:
       matrix:
         configuration: Release
-        version: 1.0.2
-        id: OCMInstallerV2
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -60,6 +58,8 @@ jobs:
     env:
       Solution_Name: OCM Installer V2.sln
       Test_Project_Path: OCM Installer V2.csproj
+      version: 1.0.2
+      id: OCMInstallerV2
 
     steps:
     - name: Checkout
@@ -86,13 +86,13 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Create NuGet file
-      run: nuget pack OCMInstallerV2.nuspec -Version ${{ matrix.version }} -Properties Configuration=${{ matrix.configuration }} -OutputDirectory "Deployment\GeneratedNugets"
+      run: nuget pack OCMInstallerV2.nuspec -Version $env:version -Properties Configuration=$env:configuration -OutputDirectory "Deployment\GeneratedNugets"
 
     - name: Install Squirrel
       run: nuget install Clowd.Squirrel -OutputDirectory packages
 
     - name: Do squirrel release
-      run: packages\Squirrel.exe releasify --package="Deployment\GeneratedNugets\${{ matrix.id }}.${{ matrix.version }}.nupkg" --releaseDir="Deployment\Releases" --framework net6.0.2 --icon "icono.ico" --splashImage "ocmlogomenu.png"
+      run: packages\Squirrel.exe releasify --package="Deployment\GeneratedNugets\$env:id.$env:version.nupkg" --releaseDir="Deployment\Releases" --framework net6.0.2 --icon "icono.ico" --splashImage "ocmlogomenu.png"
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
