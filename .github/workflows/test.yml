@@ -37,7 +37,10 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Build program
-      run: msbuild "$env:Solution_Name" /target:GenerateRelease /t:Restore /p:Configuration=Release
+      run: msbuild "$env:Solution_Name" /t:Restore /p:Configuration=Release
+
+    - name: Build nuget package
+      run: msbuild "$env:Solution_Name" /target:GenerateRelease /p:Configuration=Release
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
