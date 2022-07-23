@@ -75,18 +75,18 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Build program
-      run: msbuild "$env:Solution_Name" /target:Deploy /t:Restore /p:Configuration=Release
+      run: msbuild "$env:Solution_Name" /target:GenerateRelease /t:Restore /p:Configuration=Release
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Create NuGet file
-      run: nuget pack OCMInstallerV2.nuspec -Version $env:version -Properties Configuration=$env:configuration -OutputDirectory "Deployment\GeneratedNugets"
+#   - name: Create NuGet file
+#      run: nuget pack OCMInstallerV2.nuspec -Version $env:version -Properties Configuration=$env:configuration -OutputDirectory "Deployment\GeneratedNugets"
 
-    - name: Do squirrel release
-      run: packages\Squirrel.exe releasify --package="Deployment\GeneratedNugets\$env:id.$env:version.nupkg" --releaseDir="Deployment\Releases" --framework net6.0.2 --icon "icono.ico" --splashImage "ocmlogomenu.png"
+#    - name: Do squirrel release
+#      run: packages\Squirrel.exe releasify --package="Deployment\GeneratedNugets\$env:id.$env:version.nupkg" --releaseDir="Deployment\Releases" --framework net6.0.2 --icon "icono.ico" --splashImage "ocmlogomenu.png"
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
