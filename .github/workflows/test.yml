@@ -34,16 +34,9 @@ jobs:
     - name: Ejecutar pruebas de unidad
       run: dotnet test
 
-    - name: Subir archivos generados
-      uses: actions/upload-artifact@v3
-      with:
-        name: Archivos generados
-        path: Deployment\Releases
-
     - name: Publicar nueva versión del Launcher
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         files: Deployment/Releases/*
-        id: "automatic_release_tag"
