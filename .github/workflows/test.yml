@@ -2,9 +2,8 @@ name: Release test
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+      - "v*"
 
 jobs:
 
@@ -20,7 +19,7 @@ jobs:
       configuration: Release
 
     steps:
-    - name: Instalación inicial
+    - name: Descargar archivos del repositorio 
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -30,7 +29,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Construir programa con su instalador
+    - name: Construir programa con su propio instalador
       run: dotnet build --configuration Release
 
     - name: Ejecutar pruebas de unidad
@@ -39,5 +38,13 @@ jobs:
     - name: Subir archivos generados
       uses: actions/upload-artifact@v3
       with:
-        name: Montar subida
+        name: Archivos generados
         path: Deployment\Releases
+
+    - name: Publicar nueva versión del Launcher
+      uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: Deployment/Releases/*
+        id: "automatic_releases"
