@@ -10,8 +10,7 @@ jobs:
 
   build:
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: windows-latest
 
     env:
       Solution_Name: OCM Installer V2.sln
@@ -21,34 +20,24 @@ jobs:
       configuration: Release
 
     steps:
-    - name: Checkout
+    - name: Instalación inicial
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
+    - name: Instalar .NET Core
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    - name: Build program 
+    - name: Construir programa con su instalador
       run: dotnet build --configuration Release
 
-    #- name: Build nuget package 
-    #  run: msbuild "$env:Solution_Name" /target:GenerateRelease /t:Restore /p:Configuration=Release
-
-    # Execute all unit tests in the solution
-    - name: Execute unit tests
+    - name: Ejecutar pruebas de unidad
       run: dotnet test
 
-    # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
-    - name: Upload build artifacts
+    - name: Subir archivos generados
       uses: actions/upload-artifact@v3
       with:
-        name: Setup upload
+        name: Montar subida
         path: Deployment\Releases
