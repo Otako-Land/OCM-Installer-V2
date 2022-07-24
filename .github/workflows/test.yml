@@ -42,9 +42,9 @@ jobs:
         path: Deployment\Releases
 
     - name: Publicar nueva versión del Launcher
-      uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: Deployment/Releases/*
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: Deployment/Releases/*
         id: "automatic_releases"
