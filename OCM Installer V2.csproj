@@ -37,7 +37,7 @@
 			<Output TaskParameter="Result" ItemName="ID" />
 		</XmlPeek>
 
-		<Exec Command='nuget pack "$(NuspecFile)" -Version $(Version) -Properties Configuration=Release -OutputDirectory "$(SolutionDir)Deployment\GeneratedNugets"' />
+		<Exec Command='$(NugetTools)\NuGet.exe pack "$(NuspecFile)" -Version $(Version) -Properties Configuration=Release -OutputDirectory "$(SolutionDir)Deployment\GeneratedNugets"' />
 
 		<Exec Command='$(SquirrelTools)\Squirrel.exe releasify --package="$(SolutionDir)Deployment\GeneratedNugets\@(ID).$(Version).nupkg" --releaseDir="$(SolutionDir)Deployment\Releases" --framework net6.0.2 --icon "icono.ico" --splashImage "ocmlogomenu.png"' />
 	</Target>
