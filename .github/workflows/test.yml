@@ -2,7 +2,8 @@ name: Release test
 
 on:
   push:
-    branches: [ "master" ]
+    tags:
+      - "v*"
 
 jobs:
 
